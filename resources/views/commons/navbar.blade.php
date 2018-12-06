@@ -12,17 +12,19 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>{!! link_to_route('signup.get', 'サインアップ') !!}</li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Userページ</a></li>
-                            <li><a href="#">参加グループ</a></li>
-                            <li><a href="#">タスク一覧</a></li>
-                        </ul>
-                    </li>
-
-                    <li><a href="#">Login</a></li>
+                    @if (Auth::check())
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">User<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Userページ</a></li>
+                                <li><a href="#">参加グループ</a></li>
+                                <li><a href="#">タスク一覧</a></li>
+                            </ul>
+                        </li>
+                    @else
+                        <li>{!! link_to_route('signup.get', 'サインアップ') !!}</li>
+                        <li>{!! link_to_route('login', 'ログイン') !!}</li>
+                    @endif
                 </ul>
             </div>
         </div>
