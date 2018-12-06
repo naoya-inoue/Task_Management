@@ -16,9 +16,10 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">User<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Userページ</a></li>
+                                <li>{!! link_to_route('users.show', 'Me', ['id' => Auth::id()]) !!}</li>
                                 <li><a href="#">参加グループ</a></li>
                                 <li><a href="#">タスク一覧</a></li>
+                                <li>{!! link_to_route('logout.get', 'ログアウト') !!}</li>
                             </ul>
                         </li>
                     @else
