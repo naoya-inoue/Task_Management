@@ -26,4 +26,52 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+//タスク
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'task_users', 'user_id', 'task_id')->withTimestamps();
+    }
+//タスクを中間テーブルに
+    public function task($taskId)
+    {
+        $this->tasks()->attach($taskId);
+    }
+    
+//グループ
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'users_joining', 'user_id', 'group_id')->withTimestamps();
+    }
+//グループを中間テーブルに
+    public function group($groupId)
+    {
+        $this->groups()->attach($groupId);
+    }
+//グループ参加
+    public function join_group($groupId)
+    {
+        $this->groups()->attach($groupId);
+    }
+//グループ退会
+    public function leave_group($groupId)
+    {
+        $this->groups()->detach($groupId);
+    }
+    
+    
+    
+//コメント
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }    
+    
+//    public function tasks()
+//    {
+//        return $this->hasMany(Task::class);
+//    }
+
+    
+    
 }

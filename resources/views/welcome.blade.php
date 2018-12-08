@@ -4,6 +4,8 @@
     @if (Auth::check())
         <?php $user = Auth::user(); ?>
             {{ $user->name }}
+ ログイン時のトップはusers.show
+
     @else
         <div class="center jumbotron">
             <div class="text-center">
