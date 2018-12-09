@@ -24,7 +24,24 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
+
+
 //制限
 Route::group(['middleware' => ['auth']], function(){
-    Route::resource('users', 'UsersController');
+    //ユーザ詳細
+        Route::resource('users', 'UsersController');
+//    Route::get('users/{id}', 'UsersController@show')->name('users.show');
+//    Route::get('users/{id}/edit', 'UsersController@edit')->name('users.edit');
+//    Route::put('users', 'UsersController@update')->name('users.update');
+    //グループ
+        Route::resource('groups', 'GroupsController');
+            Route::group(['prefix' => 'users/{id}'], function() {
+                Route::post('join', 'UserGroupJoinController@store')->name('users.join');
+                Route::delete('leave', 'UserGroupJoinController@destroy')->name('users.leave');
+            });
+//    Route::post('groups', 'GroupsController@post')->name('group.create.post');
+//    Route::get('groups/{group_name}', 'GroupsController@show')->name('group.show');
+//    Route::get('groups/{group_name}/edit', 'GroupsController@edit')->name('group.edit');
+    
+
 });

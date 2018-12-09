@@ -43,11 +43,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Group::class, 'users_joining', 'user_id', 'group_id')->withTimestamps();
     }
-//グループを中間テーブルに
-    public function group($groupId)
-    {
-        $this->groups()->attach($groupId);
-    }
 //グループ参加
     public function join_group($groupId)
     {
@@ -58,7 +53,11 @@ class User extends Authenticatable
     {
         $this->groups()->detach($groupId);
     }
-    
+//中間テーブルに存在するか
+    public function is_groups($groupId)
+    {
+        return $this->groups()->where('group_id', $groupId)->exists();
+    }
     
     
 //コメント

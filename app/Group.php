@@ -22,4 +22,15 @@ class Group extends Model
     {
         $this->tasks()->attach($taskId);
     }
+//中間テーブルに存在するか
+    public function is_groups($groupId)
+    {
+        $this->groups()->where('group_id', $groupId)->exists();
+    }
+
+    
+//    public function deletegroup($id)
+//    {
+//        
+//    }
 }

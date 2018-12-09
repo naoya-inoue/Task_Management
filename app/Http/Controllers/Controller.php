@@ -11,11 +11,25 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
-    public function counts($user) {
+    public function usercounts($user) {
         $count_tasks = $user->tasks()->count();
         
         return[
             'count_tasks' => $count_tasks,
         ];
     }
+    
+    public function groupcounts($group) {
+        $count_group_join_users = $group->in_users()->count();
+        $count_group_tasks = $group->tasks()->count();
+        
+        return[
+            'count_group_join_users' => $count_group_join_users,
+            'count_group_tasks' => $count_group_tasks,
+        ];
+    }
+    
+//    public function taskcounts($task) {
+//     $count_comments = $task->
+//    }
 }

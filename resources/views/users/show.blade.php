@@ -25,7 +25,7 @@
             lesson10.7.5
             
             
-            <div class="text-left"><h4>グループタスク　<a href="#" class="btn btn-primary btn-inline">グループを作成</a></h4></div>
+            <div class="text-left"><h4>グループタスク　{!! link_to_route('groups.create', 'グループを作成', null, ['class' => 'btn btn-primary']) !!}</h4></div>
             
             table
             lesson10.7.5
