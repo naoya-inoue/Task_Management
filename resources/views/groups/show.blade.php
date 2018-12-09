@@ -27,7 +27,13 @@
             @include('user_group_join.group_join_button', ['user' => $user])
             
             OK
-            
+                @if (Auth::user()->is_groups($group->id))
+                    {!! Form::open(['route' => ['groups.destroy', $group->id], 'method' => 'delete']) !!}
+                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
+                    {!! Form::close() !!}
+                @endif
+                
+                
             </div>
         </div>
             

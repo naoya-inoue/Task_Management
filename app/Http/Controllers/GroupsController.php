@@ -50,10 +50,11 @@ class GroupsController extends Controller
         $user->join_group($group->id);
 //作成したユーザをusers_joiningテーブルに入れる
 
-        return view('groups.show',[
-            'group' => $group,
-            'user' => $user,
-        ]);
+        return redirect()->route('groups.show', ['id' => $group]);
+//        return view('groups.show',[
+//            'group' => $group,
+//            'user' => $user,
+//        ]);
     }
     /**
      * Display the specified resource.
@@ -64,14 +65,14 @@ class GroupsController extends Controller
     public function show($id)
     {
         $group = Group::find($id);
-        $user = User::find(\Auth::id());
+        $user = \Auth::id();
 
-        $date =[
+        $data =[
             'group' => $group,
             'user' => $user,
             ];
             
-        return view('groups.show', $date);
+        return view('groups.show', $data);
     }
 
 
@@ -101,13 +102,18 @@ class GroupsController extends Controller
     public function update(Request $request, $id)
     {
         $group = Group::find($id);
+        $user = \Auth::id();
         $group->group_name=$request->group_name;
         $group->group_explanation=$request->group_explanation;
         $group->save();
         
-        return view('groups.show', [
-            'group' => $group
-        ]);
+        $data =[
+            'group' => $group,
+            'user' => $user,
+            ];
+        
+        return view('groups.show', $data
+        );
     }
 
     /**
@@ -118,6 +124,12 @@ class GroupsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $group = Group::find($id);
+        
+        if (\Auth::user()->is_groups($group->id)){
+            $group->delete();
+        }
+        
+        return redirect()->route('users.show', ['user' => \Auth::user() ]);
     }
 }
