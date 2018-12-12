@@ -27,6 +27,10 @@
             @include('user_group_join.group_join_button', ['user' => $user])
             
             OK
+            {!! link_to_route('group.tasks.create', 'グループタスクを作成', ['id' => $group->id],['class' =>'btn btn-dfault']) !!}
+            
+
+
                 @if (Auth::user()->is_groups($group->id))
                     {!! Form::open(['route' => ['groups.destroy', $group->id], 'method' => 'delete']) !!}
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}

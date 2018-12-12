@@ -8,7 +8,7 @@ use App\User;
 
 class UsersController extends Controller
 {
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $user = User::find($id);
         
@@ -61,4 +61,5 @@ class UsersController extends Controller
     {
         //
     }
+    
 }

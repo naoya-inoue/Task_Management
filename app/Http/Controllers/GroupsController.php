@@ -16,6 +16,15 @@ class GroupsController extends Controller
      */
     public function index()
     {
+        $user = \Auth::user();
+        $lists = $user->group_list($user->id);
+        
+            $data= [
+            'user' => $user,
+            'lists' => $lists,
+            ];
+        
+        return view('groups.index', $data);
 //一覧表示は中間テーブルに含まれるもの
     }
 
@@ -51,10 +60,6 @@ class GroupsController extends Controller
 //作成したユーザをusers_joiningテーブルに入れる
 
         return redirect()->route('groups.show', ['id' => $group]);
-//        return view('groups.show',[
-//            'group' => $group,
-//            'user' => $user,
-//        ]);
     }
     /**
      * Display the specified resource.
@@ -132,4 +137,6 @@ class GroupsController extends Controller
         
         return redirect()->route('users.show', ['user' => \Auth::user() ]);
     }
+    
+
 }

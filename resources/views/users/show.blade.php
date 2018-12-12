@@ -6,7 +6,7 @@
         <div class="col-md-6 col-md-offset-3">
                 <div class="jumbotron">
                     <h1>{{ $user->name }}</h1>
-                        {!! link_to_route('users.edit', 'ユーザ情報編集', ['id' => $user->id], ['class' => 'glyphicon glyphicon-pencil btn btn-default aria-label=Left Align aria-hidden="true']) !!}
+                        {!! link_to_route('users.edit', 'ユーザ情報編集', ['id' => Auth::id()], ['class' => 'glyphicon glyphicon-pencil btn btn-default aria-label=Left Align aria-hidden="true']) !!}
 
                 </div>
                 <?php $now = date("y/m/d H:i");?>
@@ -14,10 +14,12 @@
             </div>
         </div>
         <br>
+    {!! link_to_route('groups.index', 'グループ', ['id' => $user->id], ['class' => 'btn btn-default']) !!}
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2" style="background-color:GRAY">
             <div class="form-group">
-                <div class="text-left"><h4>個人タスク　<a href="#" class="btn btn-primary btn-inline">タスクを作成</a></h4></div>
+                <div class="text-left"><h4>個人タスク　{!! link_to_route('user.tasks.create', 'タスクを作成', ['id' => Auth::id()], ['class' => 'btn btn-primary']) !!}</h4></div>
                 
             </div>
             

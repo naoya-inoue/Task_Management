@@ -29,19 +29,28 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 //制限
 Route::group(['middleware' => ['auth']], function(){
     //ユーザ詳細
-        Route::resource('users', 'UsersController');
-//    Route::get('users/{id}', 'UsersController@show')->name('users.show');
-//    Route::get('users/{id}/edit', 'UsersController@edit')->name('users.edit');
-//    Route::put('users', 'UsersController@update')->name('users.update');
+    Route::get('user/{id}', 'UsersController@show')->name('users.show');
+    Route::get('user/{id}/edit', 'UsersController@edit')->name('users.edit');
+    Route::put('user/{id}', 'UsersController@update')->name('users.update');
+    //ユーザタスク
+        Route::get('users/{id}/userstasks/create', 'UsersTasksController@create')->name('user.tasks.create');
+        Route::post('userstasks', 'UsersTasksController@store')->name('user.tasks');
+    //グループタスク
+        Route::get('groups/{id}/groupstasks/create', 'GroupsTasksController@create')->name('group.tasks.create');
+        Route::post('groups/{id}/groupstasks', 'GroupsTasksController@store')->name('group.tasks');
+
     //グループ
         Route::resource('groups', 'GroupsController');
-            Route::group(['prefix' => 'users/{id}'], function() {
-                Route::post('join', 'UserGroupJoinController@store')->name('users.join');
-                Route::delete('leave', 'UserGroupJoinController@destroy')->name('users.leave');
+        Route::get('groups/{id}/tasklist', 'GroupsTasksController@index')->name('group.tasks.list');
+        
+    //グループへの参加・退会・一覧
+        Route::group(['prefix' => 'users/{id}'], function() {
+            Route::get('grouplist', 'GroupsController@index')->name('group.list');
+            Route::post('join', 'UserGroupJoinController@store')->name('users.join');
+            Route::delete('leave', 'UserGroupJoinController@destroy')->name('users.leave');
             });
-//    Route::post('groups', 'GroupsController@post')->name('group.create.post');
-//    Route::get('groups/{group_name}', 'GroupsController@show')->name('group.show');
-//    Route::get('groups/{group_name}/edit', 'GroupsController@edit')->name('group.edit');
-    
+    //タスク共通
+//        Route::resource('tasks', 'TasksController');
+        
 
 });
