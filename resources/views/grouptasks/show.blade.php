@@ -11,7 +11,7 @@
                         <p>更新日 {{ $task->updated_at }}</p>
                     @endif
                     @include('tasks_status.tasks_status_button')
-            {!! link_to_route('user.tasks.edit', 'タスク編集', ['id' => Auth::id(),'task' => $task->id], ['class' => 'glyphicon glyphicon-pencil btn btn-default btn-xs']) !!}
+            {!! link_to_route('group.tasks.edit', 'タスク編集', ['id' => $group->id,'task' => $task->id], ['class' => 'glyphicon glyphicon-pencil btn btn-default btn-xs']) !!}
     </div>
         
     <div class="row">
@@ -28,25 +28,22 @@
             } else {
             print ("完了");
             }
-            ?>　</p>
-                    
-
+            ?> </p>
 	</div>
 	<div class="panel-body">
         <h4>タスク説明</h4><p>{!! nl2br(e($task->content)) !!}</p>
 	</div>
 	<div class="panel-footer">
-				<h4>期日：</h4>
+		<h4>期日：</h4>
 		        <p><?php    $now = date("Y-m-d");
                             $date = $task->deadline;
                         if($now < $date){
         		            $interval = date("d",(strtotime($date) - strtotime($now)));
-        		            print ( "残り" . $interval . "日です。" . $date . "に設定されています。");
+        		            print ( "残り" . $interval . "日です。". "<br>" . $date . "に設定されています。");
 		                }else{
         		            print ("期日を過ぎています。");
 		                }
         		    ?></p>
-
 	</div>
 </div>
 
@@ -67,8 +64,6 @@
         <td style="vertical-align:middle">{{ $comment->created_at}}</td>
     </tr>
 @endforeach
-
-    </tbody>
 </table>
 
 @endsection

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Group;
+use App\Task;
+
 
 class GroupsController extends Controller
 {
@@ -24,7 +26,7 @@ class GroupsController extends Controller
             'lists' => $lists,
             ];
         
-        return view('groups.index', $data);
+        return view('users.groups', $data);
 //一覧表示は中間テーブルに含まれるもの
     }
 
@@ -71,12 +73,22 @@ class GroupsController extends Controller
     {
         $group = Group::find($id);
         $user = \Auth::id();
-
+        $userlist = $group->feed_joinusers();
+        $grouptasks = $group->feed_grouptasks();
+        $grouptasks_not = $group->feed_grouptasks_not();
+        $grouptasks_comp = $group->feed_grouptasks_comp();
+        $count = $this->groupcounts($group);
+        
+        
         $data =[
             'group' => $group,
             'user' => $user,
+            'userlist' => $userlist,
+            'grouptasks' => $grouptasks,
+            'grouptasks_not' => $grouptasks_not,
+            'grouptasks_comp' => $grouptasks_comp,
+            'count' => $count,
             ];
-            
         return view('groups.show', $data);
     }
 
@@ -116,7 +128,7 @@ class GroupsController extends Controller
             'group' => $group,
             'user' => $user,
             ];
-        
+
         return view('groups.show', $data
         );
     }

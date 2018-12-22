@@ -1,4 +1,5 @@
 <header>
+<?php $now = date("y/m/d H:i");?>
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -8,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Task Management</a>
+                <a class="navbar-brand" href="/">Task Management</a><span style="color:white;">{{ $now }}</span>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
@@ -16,8 +17,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">User<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li>{!! link_to_route('users.show', 'Me', ['id' => Auth::id()]) !!}</li>
-                                <li><a href="#">参加グループ</a></li>
+                                <li>{!! link_to_route('users.index', 'Me', ['id' => Auth::id()]) !!}</li>
+                                <li>{!! link_to_route('users.groups.list', '参加グループ一覧', ['id' => Auth::id()]) !!}</li>
                                 <li><a href="#">タスク一覧</a></li>
                                 <li>{!! link_to_route('logout.get', 'ログアウト') !!}</li>
                             </ul>

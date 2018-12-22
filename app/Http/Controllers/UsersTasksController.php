@@ -10,34 +10,17 @@ use App\Task;
 
 class UsersTasksController extends Controller
 {
-    public function create()
+    public function create(Request $request, $id)
     {
         $user = \Auth::user();
         $task = new Task;
         
         return view('usertasks.create', [
+            'user' => $user,
             'title' => $task->title,
             'content' => $task->content,
             'deadline' => $task->deadline,
         ]);
-    }
-    
-    public function index()
-    {
-        $data = [];
-        if (\Auth::check()) {
-            $user = \Auth::user();
-            $ptasks = $user->tasks()->orderBy('deadline')->pagenate(10);
-            
-            $data = [
-                'user' => $user,
-                'ptasks' => $ptasks,
-            ];
-            $data += $this->counts($user);
-            return view('users.show', $data);
-        }else {
-            return view('welcome');   
-        }
     }
     public function store(Request $request)
     {
@@ -50,7 +33,17 @@ class UsersTasksController extends Controller
         $ptask->save();
         $user->add_task($ptask->id);
         
-    return redirect()->route('users.show', $user);
+    return redirect()->route('users.index', $user);
+    }
+    public function index(Request $request)
+    {
+        $user = User::find($request->id);
+        $usertasks = $user->feed_user_tasks();
+        return view('usertasks.index', [
+            'user_tasks' => $usertasks,
+            'user' => $user,
+        ]);
+
     }
 
     /**
@@ -59,20 +52,34 @@ class UsersTasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $task)
     {
-        //
+        $user = User::find($id);
+        $task = Task::find($task);
+        $comments = $task->feed_comments();
+
+        $data =[
+            'user' => $user,
+            'task' => $task,
+            'comments' => $comments,
+            ];
+        
+        return view('usertasks.show', $data);
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit($id, $task)
     {
-        //
+        $user = User::find($id);
+        $task = Task::find($task);
+        
+        $data =[
+            'user' => $user,
+            'task' => $task,
+            ];
+        
+        return view('usertasks.edit',$data );
+
     }
 
     /**
@@ -82,9 +89,21 @@ class UsersTasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $task)
     {
-        //
+        $task = Task::find($task);
+        $user = User::find($id);
+        $task->title = $request->title;
+        $task->content = $request->content;
+        $task->deadline = $request->deadline;
+        
+        $task->save();
+
+        $data =[
+            'task' => $task,
+            'user' => $user,
+            ];
+        return view('usertasks.show', $data);
     }
 
     /**

@@ -24,4 +24,5 @@ class Comment extends Model
     {
         $this->tasks()->attach($taskId);
     }
+    
 }

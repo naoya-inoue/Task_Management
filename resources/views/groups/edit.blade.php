@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group">
                     {!! form::label('group_explanation', 'グループの説明') !!}
-                    {!! form::textarea('group_explanation', old('group_explanation'), ['class' => 'form-control', 'row-5']) !!}
+                    {!! form::textarea('group_explanation', old('group_explanation'), ['class' => 'form-control', 'rows=3']) !!}
                 </div>
 
                     {!! Form::submit('変更', ['class' => 'btn btn-primary btn-block']) !!}

@@ -5,25 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Group;
+use App\Task;
 
 class UsersController extends Controller
 {
-    public function show(Request $request, $id)
+    public function index(Request $request, $id)
     {
         $user = User::find($id);
-        
-        
-        return view('users.show',[
+        $tasks = $user->feed_user_tasks();
+        $grouptasks = $user->feed_user_join_grouptasks();
+        $grouplist = $user->group_list($user);
+
+            $data= [
             'user' => $user,
-        ]);
+            'ptasks' => $tasks,
+            'grouptasks' => $grouptasks,
+            'grouplist' => $grouplist,
+            ];
+
+        return view('users.index', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
+    public function groups_show($id)
+    {
+        $user = User::find($id);
+        $grouplist = $user->group_list($user);
+        
+        $data = [
+            'user' => $user,
+            'grouplist' => $grouplist,
+            ];
+        return view('users.groups', $data);
+    }
+    
     public function edit($id)
     {
         $user = User::find($id);

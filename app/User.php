@@ -62,7 +62,29 @@ class User extends Authenticatable
     public function group_list($id)
     {
         $groups = $this->groups()->pluck('groups.id')->toArray();
-        return Group::whereIn('id', $groups);
+        return Group::whereIn('id', $groups)->get();
+    }
+//参加グループタスク一覧取得
+    public function feed_user_join_grouptasks()
+    {
+        $group_ids = $this->groups()->pluck('groups.id')->toArray();
+        $group_ids = Group::whereIn('id', $group_ids)->get();
+
+        foreach($group_ids as $group) {
+            $task_ids = $group->tasks()->pluck('tasks.id')->toArray();
+            $task = Task::whereIn('id', $task_ids)->get(); {
+                $grouptask_ids[] = $task;
+                }
+        }
+        
+        return $grouptask_ids;
+    }
+    
+//ユーザタスク一覧
+    public function feed_user_tasks()
+    {
+        $user_tasks = $this->tasks()->pluck('tasks.id')->toArray();
+        return Task::whereIn('id', $user_tasks)->get();
     }
 
 
@@ -72,12 +94,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }    
-    
-//    public function tasks()
-//    {
-//        return $this->hasMany(Task::class);
-//    }
-
-    
     
 }

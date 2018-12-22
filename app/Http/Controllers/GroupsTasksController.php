@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Group;
 use App\Task;
+use App\Comment;
 
 class GroupsTasksController extends Controller
 {
@@ -45,11 +46,57 @@ class GroupsTasksController extends Controller
     {
         $group = Group::find($request->id);
         $grouptasks = $group->feed_grouptasks();
-
         return view('grouptasks.index', [
             'grouptasks' => $grouptasks,
             'group' => $group,
         ]);
+    }
+    public function show($id, $task)
+    {
+        $group = Group::find($id);
+        $task = Task::find($task);
+        $comments = $task->feed_comments();
+        $count_comments = $this->commentcount($task);
+        
+        $data =[
+            'group' => $group,
+            'task' => $task,
+            'comments' => $comments,
+            'count_comments' => $count_comments,
+            ];
+        
+        return view('grouptasks.show', $data);
+    }
+    
+    
+    public function edit(Request $request, $id, $task)
+    {
+        $group = Group::find($request->id);
+        $task = Task::find($task);
+        
+        $data =[
+            'group' => $group,
+            'task' => $task,
+            ];
+        
+        return view('grouptasks.edit',$data );
+    }
+    
+    public function update(Request $request, $group, $task)
+    {
+        $task = Task::find($task);
+        $group = Group::find($group);
+        $task->title = $request->title;
+        $task->content = $request->content;
+        $task->deadline = $request->deadline;
+        
+        $task->save();
+
+        $data =[
+            'task' => $task,
+            'group' => $group,
+            ];
+        return view('grouptasks.show', $data);
     }
 
 }
