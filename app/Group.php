@@ -50,14 +50,15 @@ class Group extends Model
     {
         $grouptask_ids = $this->tasks()->pluck('tasks.id')->toArray();
         $grouptask_ids = Task::whereIn('id', $grouptask_ids)->get();
+        if(count($this->tasks()->pluck('tasks.id')->toArray()) > 0){
         foreach($grouptask_ids as $tasks) {
             if ($tasks->status == 1) {
             
                 $not_grouptask_ids [] = $tasks;
             } else {
                 $not_grouptask_ids  = [];
-            }
-            
+            }}}else{
+                $not_grouptask_ids  = [];
         }
         return $not_grouptask_ids;
     }
@@ -66,14 +67,16 @@ class Group extends Model
     {
         $grouptask_ids = $this->tasks()->pluck('tasks.id')->toArray();
         $grouptask_ids = Task::whereIn('id', $grouptask_ids)->get();
+        if(count($this->tasks()->pluck('tasks.id')->toArray()) > 0){
         foreach($grouptask_ids as $tasks) {
             if ($tasks->status == 2) {
             
                 $comp_grouptask_ids[] = $tasks;
             } else {
                 $comp_grouptask_ids  = [];
+            }}}else{
+                $comp_grouptask_ids  = [];
             }
-        }
         return $comp_grouptask_ids;
     }
 //    public function deletegroup($id)
