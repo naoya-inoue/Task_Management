@@ -14,10 +14,10 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
                 
-            {!! Form::model($user, ['route' => ['users.update', ['id' => $user->id, 'task' => $task->id], 'method' => 'put']) !!}
+            {!! Form::model($user, ['route' => ['users.update', 'id' => $user->id], 'method' => 'put']) !!}
                 <div class="form-group">
                     {!! Form::label('name', '名前') !!}
-                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
                 </div>
             
                     {!! Form::submit('変更', ['class' => 'btn btn-primary btn-block']) !!}

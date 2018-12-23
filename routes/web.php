@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth']], function(){
     //ユーザ詳細
 //    Route::get('user/{id}', 'UsersController@index')->name('users.index');
     Route::get('user/{id}/edit', 'UsersController@edit')->name('users.edit');
-    Route::put('user/{id}', 'UsersController@update')->name('users.update');
+    Route::put('user/{id}/update', 'UsersController@update')->name('users.update');
     Route::get('user/{id}/grouplist', 'UsersController@groups_show')->name('users.groups.list');
     Route::get('user/{id}/tasklist', 'UsersTasksController@index')->name('users.tasks.list');
     //ユーザタスク

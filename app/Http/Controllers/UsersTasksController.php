@@ -103,7 +103,7 @@ class UsersTasksController extends Controller
             'task' => $task,
             'user' => $user,
             ];
-        return view('usertasks.show', $data);
+        return redirect()->route('user.tasks.show', ['id' => $user, 'task' => $task->id]);
     }
 
     /**

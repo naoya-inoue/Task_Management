@@ -68,9 +68,7 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->save();
         
-        return view('users.index',[
-            'user' => $user,
-        ]);
+        return redirect()->route('users.index', ['id' => $user]);
     }
 
     /**

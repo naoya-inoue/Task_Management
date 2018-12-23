@@ -129,8 +129,7 @@ class GroupsController extends Controller
             'user' => $user,
             ];
 
-        return view('groups.show', $data
-        );
+        return redirect()->route('groups.show', ['id' => $group]);
     }
 
     /**

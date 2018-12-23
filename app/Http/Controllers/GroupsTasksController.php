@@ -96,7 +96,7 @@ class GroupsTasksController extends Controller
             'task' => $task,
             'group' => $group,
             ];
-        return view('grouptasks.show', $data);
+        return redirect()->route('user.tasks.show', ['id' => $group, 'task' => $task->id]);
     }
 
 }
