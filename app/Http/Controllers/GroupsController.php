@@ -147,7 +147,7 @@ class GroupsController extends Controller
             $group->delete();
         }
         
-        return redirect()->route('users.show', ['user' => \Auth::user() ]);
+        return redirect()->route('users.index', ['user' => \Auth::user() ]);
     }
     
 

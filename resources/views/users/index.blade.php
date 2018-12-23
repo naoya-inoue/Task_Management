@@ -78,9 +78,9 @@
                                 @foreach ($group->tasks as $task)
                 
                                 <tr style="height:4em">
-                                    <td class="text-left">{!! link_to_route('group.tasks.show', $task->title, ['id' => $group->id, 'task' => $task->id]) !!}</td>
-                                    <td>{{ $group->group_name}}</td>
-                                    <td><?php    $now = date("Y-m-d");
+                                    <td style="vertical-align:middle" class="text-left">{!! link_to_route('group.tasks.show', $task->title, ['id' => $group->id, 'task' => $task->id]) !!}</td>
+                                    <td style="vertical-align:middle">{{ $group->group_name}}</td>
+                                    <td style="vertical-align:middle"><?php    $now = date("Y-m-d");
                                             $date = $task->deadline;
                                         if($now < $date){
                         		            $interval = date("d",(strtotime($date) - strtotime($now)));
@@ -89,7 +89,7 @@
                         		            print ("期日を過ぎています。");
                 		                }
                         		    ?></td>
-                                    <td><?php if($task->status == 0 ) {
+                                    <td style="vertical-align:middle"><?php if($task->status == 0 ) {
                                         print ("進行前");
                                         } elseif ($task->status == 1) {
                                         print ("進行中");
@@ -97,7 +97,7 @@
                                         print ("完了");
                                         }
                                         ?></td>
-                <td><?php print($task->comments->count()); ?></td>
+                <td style="vertical-align:middle"><?php print($task->comments->count()); ?></td>
                                 </tr>
                                 @endforeach
                                 @endforeach

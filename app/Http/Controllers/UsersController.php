@@ -68,7 +68,7 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->save();
         
-        return view('users.show',[
+        return view('users.index',[
             'user' => $user,
         ]);
     }
