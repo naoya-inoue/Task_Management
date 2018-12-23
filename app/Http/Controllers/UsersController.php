@@ -10,9 +10,11 @@ use App\Task;
 
 class UsersController extends Controller
 {
-    public function index(Request $request, $id)
+    public function index()
     {
-        $user = User::find($id);
+        if(\Auth::check()) {
+            
+        $user = \Auth::user();
         $tasks = $user->feed_user_tasks();
         $grouptasks = $user->feed_user_join_grouptasks();
         $grouplist = $user->group_list($user);
@@ -25,6 +27,10 @@ class UsersController extends Controller
             ];
 
         return view('users.index', $data);
+        }else {
+            return view('welcome');
+        }
+        
     }
 
     

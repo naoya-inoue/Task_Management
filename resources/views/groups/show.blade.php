@@ -4,7 +4,6 @@
 <div class="text-center">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-//テーブルに変更しても良いかも
                 <div class="jumbotron">
                     <h1>{{ $group->group_name }}</h1>
                     
@@ -21,10 +20,11 @@
                             <p>更新日 {{ $group->updated_at }}</p>
                         @endif
                     </div>
-            @include('user_group_join.group_join_button', ['user' => $user])
+                    
+    @include('user_group_join.group_join_button', ['user' => $user])<br>
 
 
- @if (Auth::user()->is_groups($group->id))
+@if (Auth::user()->is_groups($group->id))
 
     {!! link_to_route('group.tasks.create', 'グループタスクを作成', ['id' => $group->id],['class' =>'btn btn-dfault']) !!}
     {!! link_to_route('group.tasks.list', 'グループタスク一覧', ['id' => $group->id],['class' =>'btn btn-dfault']) !!}
@@ -78,7 +78,7 @@
                                 print ("完了");
                                 }
                                 ?></td>
-    <td>counts</td>
+                            <td><?php print($grouptask->comments->count()); ?></td>
                         </tr>
                         @endforeach
                 </tbody>
@@ -86,70 +86,6 @@
         @endif
         </div>
     </div>
-    
-    
-テスト1進行中
-            @if (count($grouptasks_not) > 0)
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th class="col-md-6 text-center">タスク名</th>
-                        <th class="col-md-3 text-center">期日</th>
-                        <th class="col-md-2 text-center">状態</th>
-                        <th class="col-md-1 text-center">ｺﾒﾝﾄ数</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        @foreach ($grouptasks_not as $grouptask_not)
-                        <tr>
-                            <td class="text-left">{!! link_to_route('group.tasks.show', $grouptask_not->title, ['id' => $group->id, 'task' => $grouptask_not->id]) !!}</td>
-                            <td>{{ $grouptask->deadline }}</td>
-                            <td><?php if($grouptask_not->status == 0 ) {
-                                print ("進行前");
-                                } elseif ($grouptask_not->status == 1) {
-                                print ("進行中");
-                                } else {
-                                print ("完了");
-                                }
-                                ?></td>
-    <td>counts</td>
-                        </tr>
-                        @endforeach
-                </tbody>
-            </table>
-        @endif
-テスト2完了
-            @if (count($grouptasks_comp) > 0)
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th class="col-md-6 text-center">タスク名</th>
-                        <th class="col-md-3 text-center">期日</th>
-                        <th class="col-md-2 text-center">状態</th>
-                        <th class="col-md-1 text-center">ｺﾒﾝﾄ数</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        @foreach ($grouptasks_comp as $grouptask_comp)
-                        <tr>
-                            <td class="text-left">{!! link_to_route('group.tasks.show', $grouptask_comp->title, ['id' => $group->id, 'task' => $grouptask_comp->id]) !!}</td>
-                            <td>{{ $grouptask->deadline }}</td>
-                            <td><?php if($grouptask_comp->status == 0 ) {
-                                print ("進行前");
-                                } elseif ($grouptask_comp->status == 1) {
-                                print ("進行中");
-                                } else {
-                                print ("完了");
-                                }
-                                ?></td>
-    <td>counts</td>
-                        </tr>
-                        @endforeach
-                </tbody>
-            </table>
-        @endif
-
-    
     {!! Form::open(['route' => ['groups.destroy', $group->id], 'method' => 'delete']) !!}
         {!! Form::submit('グループ削除', ['class' => 'btn btn-danger btn-xs']) !!}
     {!! Form::close() !!}

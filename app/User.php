@@ -79,16 +79,12 @@ class User extends Authenticatable
         
         return $grouptask_ids;
     }
-    
 //ユーザタスク一覧
     public function feed_user_tasks()
     {
         $user_tasks = $this->tasks()->pluck('tasks.id')->toArray();
         return Task::whereIn('id', $user_tasks)->get();
     }
-
-
-    
 //コメント
     public function comments()
     {

@@ -11,10 +11,13 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
+Route::get('/', 'UsersController@index')->name('users.index');
 //サインアップ
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -25,7 +28,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 //制限
 Route::group(['middleware' => ['auth']], function(){
     //ユーザ詳細
-    Route::get('user/{id}', 'UsersController@index')->name('users.index');
+//    Route::get('user/{id}', 'UsersController@index')->name('users.index');
     Route::get('user/{id}/edit', 'UsersController@edit')->name('users.edit');
     Route::put('user/{id}', 'UsersController@update')->name('users.update');
     Route::get('user/{id}/grouplist', 'UsersController@groups_show')->name('users.groups.list');

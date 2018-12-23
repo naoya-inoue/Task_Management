@@ -46,7 +46,7 @@ class Task extends Model
     public function feed_comments()
     {
         $comments_ids = $this->comments()->pluck('comments.id')->toArray();
-        return Comment::whereIn('id', $comments_ids)->get();
+        return Comment::whereIn('id', $comments_ids)->get()->sortByDesc('created_at');
     }
 
 }

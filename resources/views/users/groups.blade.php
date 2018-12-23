@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    
+    <div class="text-center">
+            <h3>{{ $user->name }}の参加グループ一覧</h3>
+    {!! link_to_route('groups.create', 'グループを作成', null, ['class' => 'btn btn-primary']) !!}
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+
     @if (count($grouplist) > 0)
 
 <table class="table table-striped">
@@ -22,5 +29,7 @@
     </tbody>
 </table>
     @endif
-
+    
+        </div>
+    </div>
 @endsection
