@@ -67,18 +67,20 @@ class User extends Authenticatable
 //参加グループタスク一覧取得
     public function feed_user_join_grouptasks()
     {
+        if(empty($this->groups())){
         $group_ids = $this->groups()->pluck('groups.id')->toArray();
         $group_ids = Group::whereIn('id', $group_ids)->get();
 
         foreach($group_ids as $group) {
             $task_ids = $group->tasks()->pluck('tasks.id')->toArray();
-            $task = Task::whereIn('id', $task_ids)->get(); {
-                $grouptask_ids[] = $task;
-                }
+            $task = Task::whereIn('id', $task_ids)->get();
+                $grouptask_ids [] = $task;
         }
-        
-        return $grouptask_ids;
-    }
+    }else {
+                $grouptask_ids = [];
+                }
+            return $grouptask_ids;
+        }
 //ユーザタスク一覧
     public function feed_user_tasks()
     {
