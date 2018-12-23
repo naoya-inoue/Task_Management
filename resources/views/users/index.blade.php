@@ -79,7 +79,7 @@
                 
                                 <tr style="height:4em">
                                     <td style="vertical-align:middle" class="text-left">{!! link_to_route('group.tasks.show', $task->title, ['id' => $group->id, 'task' => $task->id]) !!}</td>
-                                    <td style="vertical-align:middle">{{ $group->group_name}}</td>
+                                    <td style="vertical-align:middle">{!! link_to_route('groups.show', $group->group_name, ['id' => $group]) !!}</td>
                                     <td style="vertical-align:middle"><?php    $now = date("Y-m-d");
                                             $date = $task->deadline;
                                         if($now < $date){
