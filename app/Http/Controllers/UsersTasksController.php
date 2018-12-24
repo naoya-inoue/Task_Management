@@ -43,12 +43,16 @@ class UsersTasksController extends Controller
     }
     public function index(Request $request)
     {
+        if(\Auth::id() == $request->id){
         $user = User::find($request->id);
         $usertasks = $user->feed_user_tasks();
         return view('usertasks.index', [
             'user_tasks' => $usertasks,
             'user' => $user,
         ]);
+        }else {
+            return redirect()->route('users.tasks.list', ['id' => \Auth::id()]);
+        }
 
     }
 
@@ -97,6 +101,12 @@ class UsersTasksController extends Controller
      */
     public function update(Request $request, $id, $task)
     {
+        $this->validate($request,[
+        'title' => 'required',
+        'content' => 'required',
+        'deadline' => 'required',
+        ]);
+
         $task = Task::find($task);
         $user = User::find($id);
         $task->title = $request->title;

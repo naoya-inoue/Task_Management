@@ -39,7 +39,7 @@
                                         <?php    $now = date("Y-m-d");
                                             $date = $ptask->deadline;
                                         if(date("d",(strtotime($now))) == date("d",(strtotime($date)))){
-        		                           print ( "本日、" . date("Y年m月d日",(strtotime($date))) . "に設定されています。");
+        		                           print ('<text style="color:red">' .'期日本日設定です！' .'</text>');
                                         }elseif($now < $date){
                         		            $interval = date("d",(strtotime($date) - strtotime($now)));
                         		            print ( "残り" . $interval . "日です。" . "<br>" . date("Y年m月d日",(strtotime($date))) . "に設定されています。");
@@ -85,7 +85,7 @@
                                     <td style="vertical-align:middle"><?php    $now = date("Y-m-d");
                                             $date = $task->deadline;
                                         if(date("d",(strtotime($now))) == date("d",(strtotime($date)))){
-        		                           print ( "本日、" . date("Y年m月d日",(strtotime($date))) . "に設定されています。");
+        		                           print ('<text style="color:red">' .'期日本日設定です！' .'</text>');
                                         }elseif($now < $date){
                         		            $interval = date("d",(strtotime($date) - strtotime($now)));
                         		            print ( "残り" . $interval . "日です。" . "<br>" . date("Y年m月d日",(strtotime($date))) . "に設定されています。");

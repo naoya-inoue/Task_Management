@@ -123,6 +123,11 @@ class GroupsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request,[
+        'group_name' =>'required',
+        'group_explanation' => 'required',
+        ]);
+
         $group = Group::find($id);
         $user = \Auth::id();
         $group->group_name=$request->group_name;

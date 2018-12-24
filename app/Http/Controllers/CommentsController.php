@@ -13,6 +13,10 @@ class CommentsController extends Controller
 {
     public function store(Request $request,$task)
     {
+        $this->validate($request,[
+        'comment' =>'required',
+        ]);
+
         $user = \Auth::user();
         $comment = new Comment;
         $comment->comment = $request->comment;

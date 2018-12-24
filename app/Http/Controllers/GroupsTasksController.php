@@ -88,6 +88,12 @@ class GroupsTasksController extends Controller
     
     public function update(Request $request, $group, $task)
     {
+        $this->validate($request,[
+        'title' => 'required',
+        'content' => 'required',
+        'deadline' => 'required',
+        ]);
+
         $task = Task::find($task);
         $group = Group::find($group);
         $task->title = $request->title;

@@ -36,23 +36,32 @@ class UsersController extends Controller
     
     public function groups_show($id)
     {
-        $user = User::find($id);
-        $grouplist = $user->group_list($user);
-        
-        $data = [
-            'user' => $user,
-            'grouplist' => $grouplist,
-            ];
-        return view('users.groups', $data);
+        if(\Auth::id() == $id){
+            $user = User::find($id);
+            $grouplist = $user->group_list($user);
+            
+            $data = [
+                'user' => $user,
+                'grouplist' => $grouplist,
+                ];
+            return view('users.groups', $data);
+        }else {
+        return redirect()->route('users.groups.list', ['id' => \Auth::id()]);
+        }
     }
     
     public function edit($id)
     {
+        if(\Auth::id() == $id) {
+
         $user = User::find($id);
         
         return view('users.edit',[
             'user' => $user,
         ]);
+    }else {
+        return redirect()->route('users.edit', ['id' => \Auth::id()]);
+    }
     }
 
     /**
@@ -64,11 +73,16 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(\Auth::id() == $id) {
         $user = User::find($id);
         $user->name = $request->name;
         $user->save();
-        
         return redirect()->route('users.index', ['id' => $user]);
+        
+        }else {
+        return redirect()->route('users.index', ['id' => \Auth::id()]);
+    }
+
     }
 
     /**
