@@ -30,11 +30,13 @@
 		<h4><span class="label label-info">期日</span></h4>
 		        <p><?php    $now = date("Y-m-d");
                             $date = $task->deadline;
-                        if($now < $date){
+                        if(date("d",(strtotime($now))) == date("d",(strtotime($date)))){
+        		            print ( "本日、" . date("Y年m月d日",(strtotime($date))) . "に設定されています。");
+                        }elseif($now < $date){
         		            $interval = date("d",(strtotime($date) - strtotime($now)));
-        		            print ( "残り" . $interval . "日です。". "<br>" . $date . "に設定されています。");
+        		            print ( "残り" . $interval . "日です。". "<br>" . date("Y年m月d日",(strtotime($date))) . "に設定されています。");
 		                }else{
-        		            print ($task->deadline . "に期日設定、期日を過ぎています。");
+        		            print (date("Y年m月d日",(strtotime($date))) . "に期日設定、期日を過ぎています。");
 		                }
         		    ?></p>
 	</div>

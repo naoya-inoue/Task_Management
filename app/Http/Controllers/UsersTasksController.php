@@ -24,6 +24,12 @@ class UsersTasksController extends Controller
     }
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'title' => 'required',
+            'content' => 'required',
+            'deadline' => 'required',
+            ]);
+            
         $user = \Auth::user();
         $ptask = new Task;
         $ptask->title = $request->title;

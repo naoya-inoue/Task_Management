@@ -53,6 +53,11 @@ class GroupsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'group_name' =>'required',
+            'group_explanation' => 'required',
+            ]);
+            
         $user = \Auth::user();
         $group = new Group;
         $group->group_name = $request->group_name;

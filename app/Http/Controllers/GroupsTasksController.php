@@ -29,8 +29,12 @@ class GroupsTasksController extends Controller
 
     public function store(Request $request, $id)
     {
-//        var_dump($request->id);
-//        exit();
+        $this->validate($request,[
+            'title' => 'required',
+            'content' => 'required',
+            'deadline' => 'required',
+            ]);
+
         $group = Group::find($request->id);
         $gtask = new Task;
         $gtask->title = $request->title;
