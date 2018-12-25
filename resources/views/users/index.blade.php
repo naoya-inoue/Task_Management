@@ -33,20 +33,20 @@
                         </thead>
                         <tbody>
                                 @foreach ($ptasks as $ptask)
-                                <tr>
+                                <tr style="height:4em">
                                     <td style="text-align:left","vertical-align:middle">{!! link_to_route('user.tasks.show', $ptask->title, ['id' => $user->id,'task' => $ptask->id]) !!}</td>
                                     <td style="vertical-align:middle">
                                         <?php    $now = date("Y-m-d");
                                             $date = $ptask->deadline;
                                         if(date("d",(strtotime($now))) == date("d",(strtotime($date)))){
-        		                           print ('<text style="color:red">' .'期日本日設定です！' .'</text>');
+        		                           print ('<text style="color:red">期日本日設定です！</text>');
                                         }elseif($now < $date){
                         		            $interval = date("d",(strtotime($date) - strtotime($now)));
-                        		            print ( "残り" . $interval . "日です。" . "<br>" . date("Y年m月d日",(strtotime($date))) . "に設定されています。");
+                        		            print ( '残り' . $interval . '日です。<br>' . date("Y年m月d日",(strtotime($date))) . 'に設定されています。');
                 		                }else{
-                        		            print ("期日を過ぎています。");
+                        		            print ('<text style="color:red">期日を過ぎています。</text><br>' . date("Y年m月d日",(strtotime($date))) . 'に設定されていました。');
                 		                }
-                        		        ?></td></td>
+                        		        ?></td>
                                     <td style="vertical-align:middle"><?php if($ptask->status == 0 ) {
                                         print ("進行前");
                                         } elseif ($ptask->status == 1) {
@@ -85,12 +85,12 @@
                                     <td style="vertical-align:middle"><?php    $now = date("Y-m-d");
                                             $date = $task->deadline;
                                         if(date("d",(strtotime($now))) == date("d",(strtotime($date)))){
-        		                           print ('<text style="color:red">' .'期日本日設定です！' .'</text>');
+        		                           print ('<text style="color:red">期日本日設定です！</text>');
                                         }elseif($now < $date){
                         		            $interval = date("d",(strtotime($date) - strtotime($now)));
-                        		            print ( "残り" . $interval . "日です。" . "<br>" . date("Y年m月d日",(strtotime($date))) . "に設定されています。");
+                        		            print ( '残り' . $interval . '日です。<br>' . date("Y年m月d日",(strtotime($date))) . 'に設定されています。');
                 		                }else{
-                        		            print ("期日を過ぎています。");
+                        		            print ('<text style="color:red">期日を過ぎています。</text><br>' . date("Y年m月d日",(strtotime($date))) . 'に設定されていました。');
                 		                }
                         		    ?></td>
                                     <td style="vertical-align:middle"><?php if($task->status == 0 ) {

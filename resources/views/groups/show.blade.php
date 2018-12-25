@@ -36,7 +36,7 @@
 
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             @if (count($userlist) > 0)
             <table class="table table-striped table-bordered">
                 <thead>
@@ -54,7 +54,7 @@
             </table>
             @endif
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
         @if (count($grouptasks) > 0)
             <table class="table table-striped table-bordered">
                 <thead>
@@ -62,15 +62,23 @@
                         <th class="col-md-6 text-center">タスク名</th>
                         <th class="col-md-3 text-center">期日</th>
                         <th class="col-md-2 text-center">状態</th>
-                        <th class="col-md-1 text-center">ｺﾒﾝﾄ数</th>
+                        <th class="col-md-1 text-center"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></th>
                     </tr>
                 </thead>
                 <tbody>
                         @foreach ($grouptasks as $grouptask)
-                        <tr>
-                            <td class="text-left">{!! link_to_route('group.tasks.show', $grouptask->title, ['id' => $group->id,'task' => $grouptask->id]) !!}</td>
-                            <td>{{ $grouptask->deadline }}</td>
-                            <td><?php if($grouptask->status == 0 ) {
+                        <tr style="height:4em">
+                            <td style="vertical-align:middle" class="text-left">{!! link_to_route('group.tasks.show', $grouptask->title, ['id' => $group->id,'task' => $grouptask->id]) !!}</td>
+                            <td style="vertical-align:middle"><?php    $now = date("Y-m-d");
+                                $date = $grouptask->deadline;
+                                    if(date("d",(strtotime($now))) == date("d",(strtotime($date))) || ($now > $date)){
+    		                           print ('<text style="color:red">' . date("Y年m月d日",(strtotime($date))) . '</text>');
+                                    }else {
+                    		            $interval = date("d",(strtotime($date) - strtotime($now)));
+                    		            print ( '残り' . $interval . '日<br>' . date("Y年m月d日",(strtotime($date))));
+            		                }
+                                    ?></td>
+                            <td style="vertical-align:middle"><?php if($grouptask->status == 0 ) {
                                 print ("進行前");
                                 } elseif ($grouptask->status == 1) {
                                 print ("進行中");
@@ -78,7 +86,7 @@
                                 print ("完了");
                                 }
                                 ?></td>
-                            <td><?php print($grouptask->comments->count()); ?></td>
+                            <td style="vertical-align:middle"><?php print($grouptask->comments->count()); ?></td>
                         </tr>
                         @endforeach
                 </tbody>

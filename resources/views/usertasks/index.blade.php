@@ -12,9 +12,9 @@
         <table class="table table-striped table-condensed table-hover" style="table-layout:fixed;">
             <thead>
                 <tr>
-                    <th class="col-md-7">【タスク名】<br>タスク説明</th>
-                    <th class="col-md-2">期日</th>
-                    <th class="col-md-2">状態</th>
+                    <th class="col-md-5">【タスク名】<br>タスク説明</th>
+                    <th class="col-md-4">期日</th>
+                    <th class="col-md-1">状態</th>
                     <th class="col-md-1"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span></th>
                 </tr>
             </thead>
@@ -22,7 +22,18 @@
                     @foreach ($user_tasks as $user_task)
                     <tr>
                         <td><h4>【{!! link_to_route('user.tasks.show', $user_task->title, ['id' => Auth::id(),'task' => $user_task->id]) !!}】</h4>  <div style="overflow:hidden; text-overflow:ellipsis;">{{ $user_task->content }}</div></td>
-                        <td style="vertical-align:middle">{{ $user_task->deadline }}</td>
+                        <td style="vertical-align:middle">
+                            <?php    $now = date("Y-m-d");
+                                $date = $user_task->deadline;
+                                    if(date("d",(strtotime($now))) == date("d",(strtotime($date)))){
+    		                           print ('<text style="color:red">期日本日設定です！</text>');
+                                    }elseif($now < $date){
+                    		            $interval = date("d",(strtotime($date) - strtotime($now)));
+                    		            print ( '残り' . $interval . '日です。<br>' . date("Y年m月d日",(strtotime($date))) . 'に設定されています。');
+            		                }else{
+                    		            print ('<text style="color:red">期日を過ぎています。</text><br>' . date("Y年m月d日",(strtotime($date))) . 'に設定されていました。');
+            		                }
+                                    ?></td>
                         <td style="vertical-align:middle"><?php if($user_task->status == 0 ) {
                             print ("進行前");
                             } elseif ($user_task->status == 1) {
