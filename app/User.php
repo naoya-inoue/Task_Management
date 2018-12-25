@@ -32,6 +32,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Task::class, 'task_users', 'user_id', 'task_id')->withTimestamps();
     }
+    public function is_tasks($taskId)
+    {
+        return $this->tasks()->where('task_id', $taskId)->exists();
+    }
+
 //タスクを中間テーブルに
     public function add_task($taskId)
     {
@@ -85,6 +90,7 @@ class User extends Authenticatable
         $user_tasks = $this->tasks()->pluck('tasks.id')->toArray();
         return Task::whereIn('id', $user_tasks)->get();
     }
+
 //コメント
     public function comments()
     {

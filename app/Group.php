@@ -28,6 +28,10 @@ class Group extends Model
     {
         $this->tasks()->attach($taskId);
     }
+    public function is_tasks($taskId)
+    {
+        return $this->tasks()->where('task_id',$taskId)->exists();
+    }
 //中間テーブルに存在するか
     public function is_groups($groupId)
     {
