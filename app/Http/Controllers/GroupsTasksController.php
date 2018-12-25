@@ -60,7 +60,7 @@ class GroupsTasksController extends Controller
         if(\Auth::user()->is_groups($id)){
         $group = Group::find($id);
         $task = Task::find($task);
-            if($group->is_tasks($task->id)){
+        if(!is_null($task) && ($group->is_tasks($task->id))){
 
         $comments = $task->feed_comments();
         $count_comments = $this->commentcount($task);
@@ -74,7 +74,7 @@ class GroupsTasksController extends Controller
         
         return view('grouptasks.show', $data);
             }else {
-          return redirect()->route('users.tasks.list', ['id' => \Auth::id()]);
+          return redirect()->route('users.index', ['id' => \Auth::id()]);
         }
     }}
     

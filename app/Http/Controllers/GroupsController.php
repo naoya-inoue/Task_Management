@@ -77,6 +77,7 @@ class GroupsController extends Controller
     public function show($id)
     {
         $group = Group::find($id);
+        if(!is_null($group)){
         $user = \Auth::id();
         $userlist = $group->feed_joinusers();
         $grouptasks = $group->feed_grouptasks();
@@ -95,6 +96,8 @@ class GroupsController extends Controller
             'count' => $count,
             ];
         return view('groups.show', $data);
+    }
+        return redirect()->route('users.index', ['id' => \Auth::id()]);
     }
 
 
