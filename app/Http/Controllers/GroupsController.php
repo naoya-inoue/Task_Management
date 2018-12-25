@@ -97,7 +97,7 @@ class GroupsController extends Controller
             ];
         return view('groups.show', $data);
     }
-        return redirect()->route('users.index', ['id' => \Auth::id()]);
+        return redirect()->route('users.groups.list', ['id' => \Auth::id()]);
     }
 
 

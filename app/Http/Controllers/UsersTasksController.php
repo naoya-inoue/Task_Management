@@ -64,12 +64,9 @@ class UsersTasksController extends Controller
      */
     public function show($id, $task)
     {
-        if($id == \Auth::id()){
-                
         $user = User::find($id);
         $task = Task::find($task);
-            if($user->is_tasks($task->id)){
-
+        if(!is_null($user) && (!is_null($task) && ($user->is_tasks($task->id)) && (\Auth::user()->is_tasks($id)))){
         $comments = $task->feed_comments();
 
         $data =[
@@ -84,7 +81,7 @@ class UsersTasksController extends Controller
           return redirect()->route('users.tasks.list', ['id' => \Auth::id()]);
         }
 
-    }}
+    }
 
     public function edit($id, $task)
     {
