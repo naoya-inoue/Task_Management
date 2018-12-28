@@ -34,7 +34,7 @@
                         <tbody>
                                 @foreach ($ptasks as $ptask)
                                 <tr style="height:4em">
-                                    <td style="text-align:left","vertical-align:middle">{!! link_to_route('user.tasks.show', $ptask->title, ['id' => $user->id,'task' => $ptask->id]) !!}</td>
+                                    <td style="vertical-align:middle" class="text-left">{!! link_to_route('user.tasks.show', $ptask->title, ['id' => $user->id,'task' => $ptask->id]) !!}</td>
                                     <td style="vertical-align:middle">
                                         <?php    $now = date("Y-m-d");
                                             $date = $ptask->deadline;
