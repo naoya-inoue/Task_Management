@@ -66,7 +66,7 @@ class UsersTasksController extends Controller
     {
         $user = User::find($id);
         $task = Task::find($task);
-        if(!is_null($user) && (!is_null($task) && ($user->is_tasks($task->id)) && (\Auth::user()->is_tasks($id)))){
+        if(!is_null($user) && (!is_null($task) && ($user->is_tasks($task->id)))){
         $comments = $task->feed_comments();
 
         $data =[
