@@ -71,10 +71,10 @@
                             <td style="vertical-align:middle" class="text-left">{!! link_to_route('group.tasks.show', $grouptask->title, ['id' => $group->id,'task' => $grouptask->id]) !!}</td>
                             <td style="vertical-align:middle"><?php    $now = date("Y-m-d");
                                 $date = $grouptask->deadline;
-                                    if(date("d",(strtotime($now))) == date("d",(strtotime($date))) || ($now > $date)){
+                                    if(date("Y-m-d",(strtotime($now))) == date("Y-m-d",(strtotime($date))) || ($now > $date)){
     		                           print ('<text style="color:red">' . date("Y年m月d日",(strtotime($date))) . '</text>');
                                     }else {
-                    		            $interval = date("d",(strtotime($date) - strtotime($now)));
+        		                        $interval = (strtotime($date) - strtotime($now))/(60*60*24);
                     		            print ( '残り' . $interval . '日<br>' . date("Y年m月d日",(strtotime($date))));
             		                }
                                     ?></td>

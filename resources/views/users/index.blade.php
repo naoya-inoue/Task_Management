@@ -38,10 +38,10 @@
                                     <td style="vertical-align:middle">
                                         <?php    $now = date("Y-m-d");
                                             $date = $ptask->deadline;
-                                        if(date("d",(strtotime($now))) == date("d",(strtotime($date)))){
+                                        if(date("Y-m-d",(strtotime($now))) == date("Y-m-d",(strtotime($date)))){
         		                           print ('<text style="color:red">期日本日設定です！</text>');
                                         }elseif($now < $date){
-                        		            $interval = date("d",(strtotime($date) - strtotime($now)));
+                        		            $interval = (strtotime($date) - strtotime($now))/(60*60*24);
                         		            print ( '残り' . $interval . '日です。<br>' . date("Y年m月d日",(strtotime($date))) . 'に設定されています。');
                 		                }else{
                         		            print ('<text style="color:red">期日を過ぎています。</text><br>' . date("Y年m月d日",(strtotime($date))) . 'に設定されていました。');
@@ -84,10 +84,10 @@
                                     <td style="vertical-align:middle">{!! link_to_route('groups.show', $group->group_name, ['id' => $group]) !!}</td>
                                     <td style="vertical-align:middle"><?php    $now = date("Y-m-d");
                                             $date = $task->deadline;
-                                        if(date("d",(strtotime($now))) == date("d",(strtotime($date)))){
+                                         if(date("Y-m-d",(strtotime($now))) == date("Y-m-d",(strtotime($date)))){
         		                           print ('<text style="color:red">期日本日設定です！</text>');
                                         }elseif($now < $date){
-                        		            $interval = date("d",(strtotime($date) - strtotime($now)));
+                        		            $interval = (strtotime($date) - strtotime($now))/(60*60*24);
                         		            print ( '残り' . $interval . '日です。<br>' . date("Y年m月d日",(strtotime($date))) . 'に設定されています。');
                 		                }else{
                         		            print ('<text style="color:red">期日を過ぎています。</text><br>' . date("Y年m月d日",(strtotime($date))) . 'に設定されていました。');
