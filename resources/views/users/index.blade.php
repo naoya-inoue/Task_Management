@@ -101,7 +101,7 @@
                                         print ("完了");
                                         }
                                         ?></td>
-                <td style="vertical-align:middle"><?php print($task->comments->count()); ?></td>
+                                    <td style="vertical-align:middle"><?php print($task->comments->count()); ?></td>
                                 </tr>
                                 @endforeach
                                 @endforeach
