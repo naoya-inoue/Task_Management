@@ -39,12 +39,17 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('users/{id}/userstasks/{task}', 'UsersTasksController@show')->name('user.tasks.show');
         Route::get('users/{id}/userstasks/{task}/edit', 'UsersTasksController@edit')->name('user.tasks.edit');
         Route::put('users/{id}/userstasks/{task}/', 'UsersTasksController@update')->name('user.tasks.update');
+    //ToDo
+        Route::put('users/{id}/userstasks/{task}/childtask/', 'ChildTaskSController@update')->name('user.tasks.ToDo.update');
     //グループタスク
         Route::get('groups/{id}/groupstasks/create', 'GroupsTasksController@create')->name('group.tasks.create');
         Route::post('groups/{id}/groupstasks', 'GroupsTasksController@store')->name('group.tasks');
         Route::get('groups/{id}/grouptasks/{task}', 'GroupsTasksController@show')->name('group.tasks.show');
         Route::get('groups/{id}/groupstasks/{task}/edit', 'GroupsTasksController@edit')->name('group.tasks.edit');
         Route::put('groups/{id}/grouptasks/{task}/', 'GroupsTasksController@update')->name('group.tasks.update');
+    //ToDo
+        Route::put('groups/{id}/grouptasks/{task}/childtask/', 'ChildTaskSController@update')->name('user.group.ToDo.update');
+
     //グループ
         Route::resource('groups', 'GroupsController');
         Route::get('groups/{id}/tasklist', 'GroupsTasksController@index')->name('group.tasks.list');
@@ -59,6 +64,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::post('tasks/status/{id}/', 'TaskStatusController@store')->name('tasks.status');
     //コメント
         Route::post('comments/{task}/', 'CommentsController@store')->name('comments.store');
-        
+    //ToDo追加
+        Route::post('ToDo/{task}/', 'ChildTaskSController@store')->name('ToDo.store');
 
 });

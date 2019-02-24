@@ -50,6 +50,17 @@
                         <p>更新日 {{ $task->updated_at }}</p>
                     @endif
 
+    {!! Form::model($task, ['route' => ['user.tasks.ToDo.update', 'id' => Auth::id(),'task' => $task->id], 'method' => 'put']) !!}
+        @foreach ($ToDos as $ToDo)
+            @if($ToDo->status == "0")
+                <p>{!! Form::checkbox('ToDoCheck[]', $ToDo->id) !!} {{$ToDo->ToDo}}</p>
+            @elseif($ToDo->status =="1")
+                <p>{!! Form::checkbox('ToDoCheck[]', $ToDo->id , true) !!} {{$ToDo->ToDo}}</p>
+            @endif
+        @endforeach
+        {!! Form::submit('更新', ['class' => 'btn btn-primary btn-block']) !!}
+    {!! Form::close() !!}
+    @include('commons.ToDo_post', ['task'=>$task])
 
     @include('commons.comments_post', ['task'=>$task])
     <table class="table table-striped table-condensed">

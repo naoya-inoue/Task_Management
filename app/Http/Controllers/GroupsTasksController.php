@@ -64,12 +64,14 @@ class GroupsTasksController extends Controller
 
         $comments = $task->feed_comments();
         $count_comments = $this->commentcount($task);
+        $ToDos = $task->feed_ToDo();
         
         $data =[
             'group' => $group,
             'task' => $task,
             'comments' => $comments,
             'count_comments' => $count_comments,
+            'ToDos' => $ToDos
             ];
         
         return view('grouptasks.show', $data);

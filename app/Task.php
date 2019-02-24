@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Group;
 use App\Task;
+use App\ChildTask;
 
 class Task extends Model
 {
@@ -48,5 +49,15 @@ class Task extends Model
         $comments_ids = $this->comments()->pluck('comments.id')->toArray();
         return Comment::whereIn('id', $comments_ids)->get()->sortByDesc('created_at');
     }
-
+//ToDo
+    public function childtasks()
+    {
+        return $this->hasMany(ChildTask::class);
+    }
+//タスクに対してのToDo取得
+    public function feed_ToDo()
+    {
+        $ToDo_ids = $this->childtasks()->pluck('child_tasks.id')->toArray();
+        return ChildTask::whereIn('id', $ToDo_ids)->get()->sortBy('created_at');
+    }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Group;
 use App\Task;
+use App\ChildTask;
 
 class UsersTasksController extends Controller
 {
@@ -68,11 +69,13 @@ class UsersTasksController extends Controller
         $task = Task::find($task);
         if(!is_null($user) && (!is_null($task) && ($user->is_tasks($task->id)))){
         $comments = $task->feed_comments();
+        $ToDos = $task->feed_ToDo();
 
         $data =[
             'user' => $user,
             'task' => $task,
             'comments' => $comments,
+            'ToDos' => $ToDos
             ];
         
         return view('usertasks.show', $data);
